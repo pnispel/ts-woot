@@ -7,8 +7,6 @@ function idIsLessThan(a, b) {
   const [siteIdA, logicalClockA] = a.split(':')
   const [siteIdB, logicalClockB] = b.split(':')
 
-  console.log({siteIdA, siteIdB, logicalClockA, logicalClockB, a, b})
-
   if (siteIdA < siteIdB) {
     return true
   } else if (siteIdA === siteIdB && logicalClockA < logicalClockB) {
@@ -95,8 +93,6 @@ class Woot {
 
     const insertPosition = indexOf(wString, n)
     const charactersBetween = subseq(wString, p, n)
-
-    console.log({wString, p, n})
 
     if (!charactersBetween.length) {
       insert(wString, c, insertPosition)
