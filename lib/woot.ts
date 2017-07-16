@@ -138,7 +138,7 @@ class Woot {
 
     this.incrementClock()
 
-    return ['insert', newChar]
+    return ['insert', newChar.slice(0)]
   }
 
   generateRemove(removeIndex) {
@@ -146,9 +146,13 @@ class Woot {
 
     const char = nthVisible(wString, removeIndex)
 
+    if (char === null) {
+      throw 'index out of range'
+    }
+
     this.integrateRemove(char)
 
-    return ['remove', char]
+    return ['remove', char.slice(0)]
   }
 
   asString() {
