@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { spy, match } from 'sinon';
 import Woot from './../lib/woot'
+import { Operation } from './../lib/types'
 
 describe('woot', () => {
   let id = '1'
@@ -177,6 +178,46 @@ describe('woot', () => {
 
       expect(spyFn1.withArgs(match.array.deepEquals(op), 0).calledOnce).to.be.true
       expect(spyFn2.withArgs(match.array.deepEquals(op), 0).calledOnce).to.be.true
+    })
+  })
+
+  describe('monkeytest', () => {
+    it('should be consistent', () => {
+      const ops = [inst.generateInsert, inst.generateRemove]
+      const characters = `abcdefghijk{}(_,./)1234\n\t `.split('')
+      let str = `
+        function () {
+          const i = 0;
+        }
+      `
+      const opStack: any = []
+
+      str.split('').forEach((c, i) => inst.generateInsert(i, c))
+
+      for (var i = 0; i < 100; i++) {
+        const op = ops[Math.floor(Math.random()*ops.length)];
+        const character = characters[Math.floor(Math.random()*characters.length)];
+        const index = Math.floor(Math.random()*str.length)
+
+        if (op === inst.generateInsert) {
+          str = str.substr(0, index) + character + str.substr(index)
+          opStack.push(inst.generateInsert(index, character))
+        } else {
+          str = str.substring(0, index) + str.substring(index + 1, str.length);
+          opStack.push(inst.generateRemove(index))
+        }
+
+        const failTemplate = `
+        Stack:
+        ${opStack.slice(-10).map(op => JSON.stringify(op) + '\n')}
+        Total Length: ${opStack.length}
+        `
+
+        expect(
+          inst.asString(),
+          failTemplate
+        ).to.equal(str)
+      }
     })
   })
 })
