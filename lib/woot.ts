@@ -100,16 +100,14 @@ class Woot {
       return visibleIndex(wString, insertPosition)
     }
 
-    charactersBetween.unshift(p)
-
-    let i = 1
+    let i = 0
 
     while (
       i <= charactersBetween.length - 1 &&
       idIsLessThan(charactersBetween[i][0], c[0])
     ) i++
 
-    return this.integrateInsert(c, charactersBetween[i - 1], charactersBetween[i])
+    return this.integrateInsert(c, charactersBetween[i - 1] || p, charactersBetween[i] || n)
   }
 
   integrateRemove(c) {

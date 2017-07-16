@@ -83,13 +83,23 @@ describe('woot', () => {
       expect(op).to.deep.equal(['remove', ['1:0', false, 'c', 'HEAD', 'TAIL']])
     })
 
-    it('should match the inserted text', () => {
+    it('should match the inserted text ca', () => {
       inst.generateInsert(0, 'c')
       inst.generateInsert(0, 'c')
       inst.generateRemove(1)
       inst.generateInsert(1, 'a')
 
       expect(inst.asString()).to.equal('ca')
+    })
+
+    it('should match the inserted text aac', () => {
+      inst.generateInsert(0, 'a')
+      inst.generateInsert(1, 'a')
+      inst.generateInsert(2, 'c')
+      inst.generateRemove(1)
+      inst.generateInsert(1, 'a')
+
+      expect(inst.asString()).to.equal('aac')
     })
   })
 
