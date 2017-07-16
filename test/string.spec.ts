@@ -98,17 +98,6 @@ describe('wstring', () => {
       utils.insert(wstring, toInsert, 3)
       expect(wstring[3]).to.equal(toInsert)
     })
-
-    it('should update previous and next values', () => {
-      const toInsert = ['insert', false, null, null, null]
-
-      utils.insert(wstring, toInsert, 3)
-
-      expect(wstring[3][3]).to.equal(2)
-      expect(wstring[3][4]).to.equal(3)
-      expect(wstring[4][3]).to.equal('insert')
-      expect(wstring[2][4]).to.equal('insert')
-    })
   })
 
   describe('#indexOf', () => {

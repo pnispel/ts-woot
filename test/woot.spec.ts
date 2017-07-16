@@ -33,7 +33,7 @@ describe('woot', () => {
     expect(operations.length).to.equal(2)
     expect(operations).to.deep.equal([
       ['insert', ['1:1', true, 'a', 'HEAD', '1:0']],
-      ['insert', ['1:0', true, 'c', '1:1', 'TAIL']]
+      ['insert', ['1:0', true, 'c', 'HEAD', 'TAIL']]
     ])
   })
 
@@ -133,19 +133,16 @@ describe('woot', () => {
     })
 
     it('should allow you to copy from one instance to another', () => {
-      ['a', 'b', 'c'].forEach((c, i) => {
+      ['a', 'b', 'c', 'd', 'e', 'f'].forEach((c, i) => {
         const op = inst.generateInsert(i, c)
-        otherInstance.pushOp(op)
       })
 
-      otherInstance.generateInsert(0, 'd')
-      otherInstance.generateInsert(1, 'e')
-      otherInstance.generateInsert(2, 'f')
+      const ops = inst.asOperations()
 
-      const ops = otherInstance.asOperations()
+      ops.forEach((op) => otherInstance.pushOp(op))
 
       expect(ops.length).to.equal(6)
-      expect(otherInstance.asString()).to.equal('defabc')
+      expect(otherInstance.asString()).to.equal('abcdef')
     })
 
     it('should order inserts based on siteID with other site being greater than', () => {

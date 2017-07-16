@@ -43,16 +43,6 @@ export function insert(S, c, index) {
   const previous = S[index - 1]
   const next = S[index]
 
-  // set next and previous ids
-  if (previous) {
-    previous[4] = c[0]
-    c[3] = previous[0]
-  }
-  if (next) {
-    next[3] = c[0]
-    c[4] = next[0]
-  }
-
   S.splice(index, 0, c)
 }
 
