@@ -1,4 +1,4 @@
-# JS Woot
+# ts-woot
 
 An implementation of the WOOT collaborative document algorithm.
 
