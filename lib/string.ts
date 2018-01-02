@@ -1,9 +1,5 @@
 import { WString } from './types'
 
-/*
-TODO: add types in this file
-*/
-
 export function visibleIndex(S, trueIndex) {
   let visibleCount = 0
 
